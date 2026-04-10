@@ -1,0 +1,5 @@
+{
+  "name": "BanglaTrans: Audio & Video Translator",
+  "description": "A high-performance AI application for translating audio and video files from Hindi, English, and Arabic into Bangla with synchronized subtitles and AI voiceovers.",
+  "requestFramePermissions": []
+}

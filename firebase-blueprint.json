@@ -1,0 +1,57 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stores user information and preferences.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID from Firebase Auth" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "preferences": {
+          "type": "object",
+          "properties": {
+            "theme": { "type": "string", "enum": ["light", "dark"] },
+            "defaultTargetLang": { "type": "string", "default": "bn" }
+          }
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "TranslationJob": {
+      "title": "Translation Job",
+      "description": "Represents a single audio/video translation task.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "fileName": { "type": "string" },
+        "fileType": { "type": "string", "enum": ["video", "audio"] },
+        "sourceLang": { "type": "string" },
+        "targetLang": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "uploading", "transcribing", "translating", "dubbing", "completed", "failed"] },
+        "progress": { "type": "number" },
+        "originalFileUrl": { "type": "string" },
+        "translatedFileUrl": { "type": "string" },
+        "subtitleUrl": { "type": "string" },
+        "transcript": { "type": "array", "items": { "type": "object" } },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "error": { "type": "string" }
+      },
+      "required": ["userId", "fileName", "fileType", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile documents"
+    },
+    "/jobs/{jobId}": {
+      "schema": "TranslationJob",
+      "description": "Translation job documents"
+    }
+  }
+}
